@@ -6,9 +6,9 @@ const CONFIG = {
     role: "growth marketer",
     bio: "I'm learning about data engineering.",
     email: "ludwig.kim0914@gmail.com",
-    // linkedin: "morethanmin",
-    // github: "morethanmin",
-    // instagram: "",
+    linkedin: "hyohyeon",
+    github: "lud0914",
+    instagram: "",
   },
   projects: [
     {
