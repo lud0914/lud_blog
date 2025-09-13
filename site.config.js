@@ -10,12 +10,12 @@ const CONFIG = {
     github: "lud0914",
     instagram: "",
   },
-  // projects: [
-    // {
-    //   name: `morethan-log`,
-    //   href: "https://github.com/morethanmin/morethan-log",
-    // },
-  // ],
+  projects: [
+    {
+      name: `blog`,
+      href: "https://lud-ten.vercel.app",
+    },
+  ],
   // blog setting (required)
   blog: {
     title: "Ludevelop-log",
