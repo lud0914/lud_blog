@@ -15,6 +15,12 @@ async function getPageProperties(
   for (let i = 0; i < rawProperties.length; i++) {
     const [key, val]: any = rawProperties[i]
     properties.id = id
+    
+    // 🛡️ [수정 1] 스키마 정보가 없으면 해당 속성은 건너뜁니다.
+    if (!schema[key]) {
+      continue
+    }
+
     if (schema[key]?.type && !excludeProperties.includes(schema[key].type)) {
       properties[schema[key].name] = getTextContent(val)
     } else {
@@ -22,9 +28,12 @@ async function getPageProperties(
         case "file": {
           try {
             const Block = block?.[id].value
-            const url: string = val[0][1][0][1]
-            const newurl = customMapImageUrl(url, Block)
-            properties[schema[key].name] = newurl
+            // 🛡️ [수정 2] 옵셔널 체이닝(?.)으로 안전하게 URL에 접근합니다.
+            const url: string | undefined = val?.[0]?.[1]?.[0]?.[1]
+            if (url) {
+              const newurl = customMapImageUrl(url, Block)
+              properties[schema[key].name] = newurl
+            }
           } catch (error) {
             properties[schema[key].name] = undefined
           }
@@ -52,7 +61,6 @@ async function getPageProperties(
         }
         case "person": {
           const rawUsers = val.flat()
-
           const users = []
           for (let i = 0; i < rawUsers.length; i++) {
             if (rawUsers[i][0][1]) {
